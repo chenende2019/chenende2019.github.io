@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="陈恩得">
+    
+    <meta name="description" content="陈恩得的个人技术专栏">
+    
+    
+    
+    
+    
+    
+    <title>vue实战之（十）css样式练习 | 陈恩得的个人技术专栏</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d58bcb3d17fcd5d34007bacf01322163";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    
+    <!--网站图标-->
+    <link rel="icon" href="/images/favicon.ico">
+</head></html>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://www.chenende.top/images/lg/移动端背景图.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">chen en deの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('/images/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -306px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('/images/background.jpg');
+            background-position: center -350px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">chen en deの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1000'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">vue实战之（十）css样式练习</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2019-03-02 22:31:02
+        </div>
+        <span id="busuanzi_container_page_pv">&nbsp;/&nbsp;本文总阅读量<span id="busuanzi_value_page_pv">
+           </span>次 </span>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/vue/">#vue</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本章针对前面案例中的css样式进行一次总结，根据案例中所使用的css样式来完成下面的案例：</p>
+<p><img src="/images/vue/vue10-01.png" alt="vue010-01"></p>
+<p>整个页面总体分为两块内容，即绿色模块和带图片的三个<code>&lt;div&gt;</code>,<code>free style</code>被包含在模块中。主要运用了<code>相对定位</code>、<code>绝对定位</code>、<code>float</code>的特性。</p>
+<a id="more"></a>
+<h2 id="案例实现"><a href="#案例实现" class="headerlink" title="案例实现"></a>案例实现</h2><ul>
+<li><p>初始化一个vue项目</p>
+<p>  1.使用命令<code>vue init webpack demo</code><br>  2.在<code>components</code>文件夹下创建组件<code>demo.vue</code><br>  3.配置<code>router</code>路由，使访问主页的时候展示<code>demo</code>组件中的内容</p>
+</li>
+<li><p>在项目中安装<code>stylus</code>第三方插件<br>  1.安装<code>stylus</code></p>
+<pre><code>使用命令`npm install stylus --save`
+</code></pre><p>  2.安装<code>stylus-loader</code></p>
+<pre><code>使用命令`npm install stylus-loader --save`        
+</code></pre></li>
+<li><p>在<code>demo</code>组件中添加<code>html</code>内容</p>
+</li>
+</ul>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=<span class="string">"w"</span>&gt;</span><br><span class="line">    &lt;div class=<span class="string">"back1"</span>&gt;</span><br><span class="line">      &lt;img class=<span class="string">"back-img"</span> :src=<span class="string">"imgUrl"</span>/&gt;</span><br><span class="line">      &lt;div class=<span class="string">"font1"</span>&gt;free&lt;/div&gt;</span><br><span class="line">      &lt;div class=<span class="string">"font2"</span>&gt;<span class="built_in">style</span>&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=<span class="string">"count"</span>&gt;</span><br><span class="line">      &lt;div class=<span class="string">"a"</span>&gt;</span><br><span class="line">        &lt;img class=<span class="string">"im"</span> :src=<span class="string">"url2"</span>/&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;p class=<span class="string">"text"</span>&gt;&lt;b&gt;春&amp;emsp;意&lt;/b&gt;&lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;div class=<span class="string">"c"</span>&gt;</span><br><span class="line">        &lt;img class=<span class="string">"im"</span> :src=<span class="string">"url"</span>/&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;p class=<span class="string">"text"</span>&gt;&lt;b&gt;清&amp;emsp;新&lt;/b&gt;&lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;div class=<span class="string">"b"</span>&gt;</span><br><span class="line">        &lt;img class=<span class="string">"im"</span> :src=<span class="string">"url3"</span>/&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;p class=<span class="string">"text"</span>&gt;&lt;b&gt;秀&amp;emsp;丽&lt;/b&gt;&lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: '<span class="built_in">demo</span>',</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;</span><br><span class="line">      url: 'https://timgsa.baidu.com/timg?<span class="built_in">image</span>&amp;quality=<span class="number">80</span>&amp;size=b9999_10000&amp;<span class="built_in">sec</span>=<span class="number">1551367137903</span>&amp;di=<span class="number">091efc06bc71ca473b479e815321bbba</span>&amp;imgtype=<span class="number">0</span>&amp;src=http%3A%2F%2Fimg.article.pchome.net%2F00%2F24%2F45%2F49%2Fpic_lib%2Fs960x639%2F003%<span class="number">25281</span>%2529s960x639.jpg',</span><br><span class="line">      url2: 'https://timgsa.baidu.com/timg?<span class="built_in">image</span>&amp;quality=<span class="number">80</span>&amp;size=b9999_10000&amp;<span class="built_in">sec</span>=<span class="number">1551375406784</span>&amp;di=515099c30bb3beb13507597dbb85c5a8&amp;imgtype=<span class="number">0</span>&amp;src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3D3314bdda771ed21b6dc426a6c507b7b1%2F0ff41bd5ad6eddc4e55a98d333dbb6fd5266335c.jpg',</span><br><span class="line">      url3: 'https://timgsa.baidu.com/timg?<span class="built_in">image</span>&amp;quality=<span class="number">80</span>&amp;size=b9999_10000&amp;<span class="built_in">sec</span>=<span class="number">1551375485541</span>&amp;di=e941c2e424d8f629df44b99aecaf5d3d&amp;imgtype=<span class="number">0</span>&amp;src=http%3A%2F%2Fdingyue.ws.126.net%2FvIxWtTpVa8bD8ipnHTI%3DN%3DGhrfcAueEBETia2HHu7l7Ur1547191216681compressflag.jpg',</span><br><span class="line">      imgUrl: 'https://timgsa.baidu.com/timg?<span class="built_in">image</span>&amp;quality=<span class="number">80</span>&amp;size=b9999_10000&amp;<span class="built_in">sec</span>=<span class="number">1551377357772</span>&amp;di=2705368863f402e8dca2b254a6531c76&amp;imgtype=<span class="number">0</span>&amp;src=http%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_jpg%2FDcF3M8O2lUxmCicvXxgb65Cxcfd6AQ4IibUibzgoG5icMr6PAzjSicwRXh6icrJT6iczvCjCke3J0Mj8A0HL350ejP6Fw%2F640%3Fwx_fmt%3Djpeg'</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;<span class="built_in">style</span> lang=<span class="string">"stylus"</span> scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="built_in">style</span>&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* 接下来定义css样式</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.w</span><br><span class="line">    <span class="built_in">position</span>:absolute</span><br><span class="line">    <span class="built_in">width</span>:<span class="number">100</span><span class="symbol">%</span></span><br><span class="line">    <span class="built_in">height</span>:<span class="number">100</span><span class="symbol">%</span></span><br><span class="line">    top <span class="number">0</span></span><br><span class="line">    left <span class="number">0</span></span><br><span class="line">    right <span class="number">0</span></span><br><span class="line">    margin <span class="number">0</span></span><br><span class="line">    <span class="built_in">background</span>-<span class="built_in">color</span> #f5ffb5</span><br><span class="line">  .back1</span><br><span class="line">    <span class="built_in">height</span> 500px</span><br><span class="line">    margin <span class="number">0</span> auto</span><br><span class="line">    overflow hidden</span><br><span class="line">    <span class="built_in">background</span> greenyellow</span><br><span class="line">    <span class="built_in">width</span> audo</span><br><span class="line">    <span class="built_in">border</span>-bottom solid 15px #fff</span><br><span class="line">    .back-img</span><br><span class="line">      <span class="built_in">width</span> <span class="number">100</span><span class="symbol">%</span></span><br><span class="line">      <span class="built_in">opacity</span> <span class="number">0.2</span></span><br><span class="line">  .font1</span><br><span class="line">    <span class="built_in">float</span> left</span><br><span class="line">    <span class="built_in">position</span> absolute</span><br><span class="line">    left <span class="number">15</span><span class="symbol">%</span></span><br><span class="line">    top <span class="number">5</span><span class="symbol">%</span></span><br><span class="line">    <span class="built_in">font</span>-size 200px</span><br><span class="line">    text-shadow:3px 3px #fff</span><br><span class="line">    <span class="built_in">background</span>: <span class="built_in">linear</span>-gradient(to left, #d4ff84,#ff8ac6);</span><br><span class="line">    -webkit-<span class="built_in">background</span>-clip: text;</span><br><span class="line">    <span class="built_in">color</span>: <span class="built_in">transparent</span>;</span><br><span class="line">  .font2</span><br><span class="line">    <span class="built_in">float</span> right</span><br><span class="line">    <span class="built_in">position</span> absolute</span><br><span class="line">    right <span class="number">15</span><span class="symbol">%</span></span><br><span class="line">    top <span class="number">5</span><span class="symbol">%</span></span><br><span class="line">    <span class="built_in">font</span>-size 200px</span><br><span class="line">    text-shadow:3px 3px #fff</span><br><span class="line">    <span class="built_in">background</span>: <span class="built_in">linear</span>-gradient(to right, #d4ff84,#ffea18);</span><br><span class="line">    -webkit-<span class="built_in">background</span>-clip: text;</span><br><span class="line">    <span class="built_in">color</span>: <span class="built_in">transparent</span>;</span><br><span class="line">  .count</span><br><span class="line">    <span class="built_in">position</span> absolute</span><br><span class="line">    top 40px</span><br><span class="line">    <span class="built_in">width</span> <span class="number">100</span><span class="symbol">%</span></span><br><span class="line">    <span class="built_in">height</span> <span class="number">90</span><span class="symbol">%</span></span><br><span class="line">    .a</span><br><span class="line">      overflow hidden</span><br><span class="line">      <span class="built_in">float</span> left</span><br><span class="line">      <span class="built_in">position</span> absolute</span><br><span class="line">      left 20px</span><br><span class="line">      <span class="built_in">height</span> 300px</span><br><span class="line">      <span class="built_in">width</span> 300px</span><br><span class="line">      <span class="built_in">background</span> #ff8ac6</span><br><span class="line">      <span class="built_in">border</span> solid 3px #ff8ac6</span><br><span class="line">      <span class="built_in">border</span>-<span class="built_in">radius</span> <span class="number">20</span><span class="symbol">%</span></span><br><span class="line">      <span class="built_in">color</span> #fff</span><br><span class="line">      margin 350px <span class="number">0</span></span><br><span class="line">      .im</span><br><span class="line">        <span class="built_in">position</span>: relative</span><br><span class="line">        <span class="built_in">height</span> <span class="number">90</span><span class="symbol">%</span></span><br><span class="line">        <span class="built_in">width</span> <span class="number">100</span><span class="symbol">%</span></span><br><span class="line">      .text</span><br><span class="line">        <span class="built_in">position</span>: relative</span><br><span class="line">        top <span class="number">0px</span></span><br><span class="line">        text-align <span class="built_in">center</span></span><br><span class="line">        margin <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    .c</span><br><span class="line">      overflow hidden</span><br><span class="line">      <span class="built_in">float</span> left</span><br><span class="line">      <span class="built_in">height</span> 300px</span><br><span class="line">      <span class="built_in">width</span> 300px</span><br><span class="line">      <span class="built_in">background</span> #35ff0c</span><br><span class="line">      <span class="built_in">border</span> solid 3px #35ff0c</span><br><span class="line">      <span class="built_in">position</span>:relative</span><br><span class="line">      left <span class="number">40</span><span class="symbol">%</span></span><br><span class="line">      <span class="built_in">border</span>-<span class="built_in">radius</span> <span class="number">20</span><span class="symbol">%</span></span><br><span class="line">      <span class="built_in">color</span> #fff</span><br><span class="line">      margin 350px <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">      .im</span><br><span class="line">        <span class="built_in">position</span>: relative</span><br><span class="line">        <span class="built_in">height</span> <span class="number">90</span><span class="symbol">%</span></span><br><span class="line">        <span class="built_in">width</span> <span class="number">100</span><span class="symbol">%</span></span><br><span class="line">      .text</span><br><span class="line">        <span class="built_in">position</span>: relative</span><br><span class="line">        top <span class="number">0px</span></span><br><span class="line">        text-align <span class="built_in">center</span></span><br><span class="line">        margin <span class="number">0</span></span><br><span class="line">    .b</span><br><span class="line">      overflow hidden</span><br><span class="line">      <span class="built_in">position</span> absolute</span><br><span class="line">      right 20px</span><br><span class="line">      <span class="built_in">float</span> right</span><br><span class="line">      <span class="built_in">height</span> 300px</span><br><span class="line">      <span class="built_in">width</span> 300px</span><br><span class="line">      <span class="built_in">background</span> #ffea18</span><br><span class="line">      <span class="built_in">border</span> solid 3px #ffea18</span><br><span class="line">      <span class="built_in">border</span>-<span class="built_in">radius</span> <span class="number">20</span><span class="symbol">%</span></span><br><span class="line">      margin 350px <span class="number">0</span></span><br><span class="line"></span><br><span class="line">      .im</span><br><span class="line">        <span class="built_in">position</span>: relative</span><br><span class="line">        <span class="built_in">height</span> <span class="number">90</span><span class="symbol">%</span></span><br><span class="line">        <span class="built_in">width</span> <span class="number">100</span><span class="symbol">%</span></span><br><span class="line">      .text</span><br><span class="line">        <span class="built_in">position</span>: relative</span><br><span class="line">        top <span class="number">0px</span></span><br><span class="line">        text-align <span class="built_in">center</span></span><br><span class="line">        margin <span class="number">0</span></span><br><span class="line">        <span class="built_in">color</span>: #fff</span><br></pre></td></tr></table></figure>
+<p>1.字体颜色渐变</p>
+<pre><code>background: linear-gradient(to left, #d4ff84,#ff8ac6);
+-webkit-background-clip: text;
+color: transparent;
+</code></pre><p>2.字体描边</p>
+<pre><code>text-shadow:3px 3px #fff
+</code></pre><p>3.float居中</p>
+<pre><code>position:relative
+left 40%
+</code></pre><p>4.背景图透明度</p>
+<pre><code>opacity 0.2
+</code></pre><p>5.div边缘弧形过渡效果</p>
+<pre><code>border-radius 20%
+</code></pre><p>6.绝对定位</p>
+<pre><code>position absolute
+结合top、bottom、left、right使用
+</code></pre><p>7.相对定位</p>
+<pre><code>position relative
+结合top、bottom、left、right使用
+</code></pre><blockquote>
+<p>对于相对定位和绝对定位的区别，可以参数<a href="https://www.cnblogs.com/heroine/p/5852748.html" target="_blank" rel="noopener">这篇博文</a><br>1.绝对定位是相对于使用了postion,且值非<code>static</code>的父级元素的，相对定位没有此限制<br>2.相对定位位移后不会释放原来占有的位置，绝对定位会释放。</p>
+</blockquote>
+<p>8.超出div内容的显示与隐藏</p>
+<pre><code>overflow hidden 隐藏
+overflow display 显示
+</code></pre><p>9.外边距与内边距</p>
+<pre><code>padding 外边距
+margin 内边距
+</code></pre><p>10.文章段落开头空格</p>
+<pre><code>text-indent .4rem
+</code></pre><p>11.设置整个页面的背景色</p>
+<pre><code>position:absolute
+width:100%
+height:100%
+top 0
+left 0
+right 0
+margin 0
+background-color #f5ffb5
+
+其中`top`、`left`、`right`、`margin`的设置是为了不让页面与浏览器间留有缝隙
+</code></pre><p>12.设置如何处理元素内的空白</p>
+<pre><code>white-space
+------------------------------
+值     描述
+normal     默认。空白会被浏览器忽略。
+pre     空白会被浏览器保留。其行为方式类似 HTML 中的 &lt;pre&gt; 标签。
+nowrap     文本不会换行，文本会在在同一行上继续，直到遇到 &lt;br&gt; 标签为止。
+pre-wrap     保留空白符序列，但是正常地进行换行。
+pre-line     合并空白符序列，但是保留换行符。
+inherit     规定应该从父元素继承 white-space 属性的值。        
+</code></pre><blockquote>
+<p>在练习的过程中切勿意为的依葫芦画瓢，发现问题解决问题才能够得以成长。学习在于点滴的积累，各位加油！</p>
+</blockquote>
+
+    </div>
+    <!--打赏-->
+    
+    <! -- 添加捐赠图标 -->
+<div class="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           ↑<br>
+           欣赏此文？求鼓励，求支持！
+        </span>
+        <br>
+      </div>
+    <div id="donate_guide" style="max-width: 100%;max-height: 100%" class="donate_bar center hidden">
+        <!-- 方式一：
+            ![](/img/Alipay.jpg)
+            ![](/img/WeChatpay.jpg)
+        -->
+        <!-- 方式二；
+            step1：在_config.yml中添加配置
+                Alipay: /img/Alipay.jpg
+                WeChatpay: /img/WeChatpay.jpg
+            step2：此处两张图片的路径分别设置为如下
+                <img src=""
+                <img src=""
+        -->
+        <!-- 支付宝打赏图案 -->
+        <img src="/images/dashang/alipay.jpg" alt="支付宝打赏" style="max-width: 80%;max-height: 80%">
+        <!-- 微信打赏图案 -->
+        <img src="/images/dashang/wxzf.jpg" alt="微信打赏" style="max-width: 80%;max-height: 80%">
+        <br>
+        <a>&emsp;&emsp;&emsp;&emsp;支付宝打赏&emsp;&emsp;&emsp;&emsp;</a>
+        <a>&emsp;&emsp;&emsp;&emsp;微信打赏&emsp;&emsp;&emsp;&emsp;</a>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            document.getElementById("donate_board").classList.add("hidden");
+            document.getElementById("donate_guide").classList.remove("hidden");
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+
+    
+    <br>
+    <footer class="article-footer">
+          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+          <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://www.chenende.top/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    </footer>
+    <br>
+    <div><a color="red">如需转载，请注明作者和来源！</a></div>
+    <br>
+</div>
+
+
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/2019/03/03/vue11/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                vue实战之（十一）使用Axios发送ajax请求
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2019/03/02/vue09/">
+                vue实战之（九）v-for循环展示列表
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+    <!-- 因为gitment里面也有gitment-container，所以这里就改为gitment-comment -->
+<div class="gitment-comment">
+    <div id="container"></div>
+</div>
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        // id default is location.href
+        id: location.pathname,
+        owner: 'chenende2019',
+        repo: 'chenende2019.github.io',
+        oauth: {
+            client_id: '70f594a93794fd9d7504',
+            client_secret: 'fec4f8eef1a42fa2973ac581567abeb306fb92b4',
+        },
+    })
+    gitment.render('container')
+</script>
+    
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    <img src="/images/logo.jpeg">
+    
+    <span>陈恩得</span>
+    
+    
+    <a title="陈恩得的个人技术专栏">陈恩得的个人技术专栏</a>
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>21</span>Tags</a>
+        <a class="count categories"><span>14</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"那年花开月正圆","author":"丁汀","url":"https://www.chenende.top/music/情话.mp3","pic":"https://www.chenende.top/images/music/nnhkyzy.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+    <div class="title">
+        <a>联系我（微信）</a>
+    </div>
+    <img src="/images/erweima.jpg" class="weixin">
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/vue入门/">#vue入门</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/linux/">#linux</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ubuntu/">#ubuntu</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/vue/">#vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/axios/">#$axios</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ElementUI组件/">#ElementUI组件</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/springboot整合Mybatis/">#springboot整合Mybatis</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合vue/">#springboot整合vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Mybatis逆向工程/">#Mybatis逆向工程</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/07/10/Eureka/" title="springCloud之服务治理工具Eureka">springCloud之服务治理工具Eureka</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/07/annotation/" title="java 注解">java 注解</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/06/SpringCloud/" title="springCloud 微服务治理工具">springCloud 微服务治理工具</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/dubbo/" title="dubbo集群容错与负载均衡策略">dubbo集群容错与负载均衡策略</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/DistributedTransaction/" title="分布式事务">分布式事务</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>6</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/04/sql/" title="sql优化">sql优化</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>7</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle02/" title="oracle高级篇">oracle高级篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>8</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle/" title="oracle基础篇">oracle基础篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>9</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate-02/" title="Hibernate之批量查询">Hibernate之批量查询</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>10</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate/" title="Hibernate之理论篇">Hibernate之理论篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>11</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hexo/" title="ubuntu安装hexo">ubuntu安装hexo</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>12</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/25/mysql/" title="mysql">mysql</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>13</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/24/java-String/" title="java String">java String</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>14</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-properties/" title="java 持久化配置工具类">java 持久化配置工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>15</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-IO/" title="java 字节流和字符流的读写">java 字节流和字符流的读写</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>16</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/22/java-reflex/" title="java 反射">java 反射</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>17</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/10/javaWeb-cxf/" title="springboot中CXF的使用">springboot中CXF的使用</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>18</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/09/Google-Guava-Collections/" title="Google Guava Collections工具类">Google Guava Collections工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>19</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-BigDecimal/" title="使用BigDecimal进行浮点运算">使用BigDecimal进行浮点运算</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>20</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-Concurrent/" title="一道经典的java并发编程题-统计访问量及访问状态">一道经典的java并发编程题-统计访问量及访问状态</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里巴巴.png">
+            
+            <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2" target="_blank">阿里巴巴失量图标库</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里云.png">
+            
+            <a href="https://home.console.aliyun.com/new#/" target="_blank">阿里云</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://ziyuan.baidu.com/site/index" target="_blank">百度搜索资源平台</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度云.png">
+            
+            <a href="https://pan.baidu.com/" target="_blank">百度网盘</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/hexo.png">
+            
+            <a href="https://hexo.io/zh-cn/" target="_blank">Hexo</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/Vue.png">
+            
+            <a href="https://cn.vuejs.org/" target="_blank">Vue</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/ip.png">
+            
+            <a href="https://ip.chinaz.com/" target="_blank">ip查询</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/在线工具.png">
+            
+            <a href="https://tool.lu/tip/" target="_blank">在线工具</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/github.png">
+            
+            <a href="https://github.com/chenende2019" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/coding.png">
+            
+            <a href="https://dev.tencent.com/u/chenende/" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/sf.png">
+            
+            <a href="https://segmentfault.com/" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/开发者头条.png">
+            
+            <a href="https://toutiao.io/" target="_blank">开发者头条</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/网易.png">
+            
+            <a href="https://reg.163.com/logins.jsp" target="_blank">163邮箱</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/elementui.png">
+            
+            <a href="https://element.eleme.io/#/zh-CN/component/message-box" target="_blank">ElementUI</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+      <div class="title">
+            <a>访客信息</a>
+        </div>
+    <img src="https://tool.lu/netcard/" class="weixin">
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+© 2019 陈恩得
+
+<br>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<br>
+About me <a href="/about-me/">关于我</a>.&nbsp;
+
+
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

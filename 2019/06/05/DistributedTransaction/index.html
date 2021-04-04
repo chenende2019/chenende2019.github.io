@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="陈恩得">
+    
+    <meta name="description" content="陈恩得的个人技术专栏">
+    
+    
+    
+    
+    
+    
+    <title>分布式事务 | 陈恩得的个人技术专栏</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d58bcb3d17fcd5d34007bacf01322163";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    
+    <!--网站图标-->
+    <link rel="icon" href="/images/favicon.ico">
+</head></html>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://www.chenende.top/images/lg/移动端背景图.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">chen en deの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('/images/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -306px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('/images/background.jpg');
+            background-position: center -350px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">chen en deの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1000'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">分布式事务</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2019-06-05 21:07:32
+        </div>
+        <span id="busuanzi_container_page_pv">&nbsp;/&nbsp;本文总阅读量<span id="busuanzi_value_page_pv">
+           </span>次 </span>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/java-web/">#java web</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>眼下貌似有点规模的公司面试的时候都会问公布式事务的问题，有的问得比较委婉先以分布式框架为引子，分布式框架？？？刚开始的时候我一脸蒙逼，能想到的只有dubbo、MQ这些分布式技术，并没有把它们当成框架来使用，一时间也就没能反映过来。事实上说的也就是它们。委婉的面试官会如何保证dubbo服务的幂等性？又是一脸蒙带，什么是<a href="https://www.cnblogs.com/baizhanshi/p/6860061.html" target="_blank" rel="noopener">幂等</a>,我以为是自己耳背，反复问了好几遍都没听明白后，只能回答不知道。那位面试官可以意识到了自己的专业性，索性换了种通俗点的问法，问在一个方法中调用多个dubbo服务，如何保证事务操作的一致性？这次真的听懂了，也真的是蒙逼了。之前听别人说过分布式事务，通过MQ消息中间件可以实现分布式事务，但只是泛泛而谈并未深入思考过。在经历好几次面试都被提及后不得不认真思考总结一下。</p>
+<h3 id="分布式事务的典型案例"><a href="#分布式事务的典型案例" class="headerlink" title="分布式事务的典型案例"></a>分布式事务的典型案例</h3><p>场景描述：支付宝转账余额宝</p>
+<pre><code>分布式事务必须满足的条件：
+
+1、远程RPC调用，支付宝和余额宝存在接口调用
+
+2、支付宝和余额宝使用不同的数据库
+</code></pre><a id="more"></a>    
+<blockquote>
+<p>在工程A中的转帐方法中使用dubbo远程分别调用支付宝和余额宝两个项目中的服务对各自的数据进行操作，这就产生一个问题：<br>本地事务无法控制支付宝和余额宝中的事务操作，如果支付宝转帐成功，钱已经扣了，余额宝在执行数据库操作的时候失败，回滚事务，<br>而本地事务是无法回滚支付宝中的事务的。这就导致数据不一致。</p>
+</blockquote>
+<h3 id="使用ActiveMQ解决分布式事务"><a href="#使用ActiveMQ解决分布式事务" class="headerlink" title="使用ActiveMQ解决分布式事务"></a>使用ActiveMQ解决分布式事务</h3><p>我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性。</p>
+<p><img src="/images/javaWeb/javaWeb-01.png" alt=""></p>
+<p>如图所示：<br>    在支付宝和余额宝项目的数据库中分别添加<code>message</code>表，字段<code>user_id</code>、<code>amount（转帐金额）</code>、<code>message_id</code>(流水id，标识夸系统的一次转账操作),<code>status</code>（confirm，unconfirm）</p>
+<pre><code>1、支付宝扣款成功时往message表插入消息
+
+2、使用JDK提供的timer定时器定时扫描message表的unconfirm状态记录往activemq插入消息却message对象，包括用户ID，金额和流水ID（消息插入成功说明支付宝扣款已成功，支付宝中的message表中状态是在余额宝增额完成后修改的，如果状态未完成说明余额宝那边数据修改未成功，所以需要执行幂等操作）
+
+3、余额宝收到消息消费消息时先根据户ID查询message表如果有记录就不处理如果没记录就进行数据库增款操作
+
+4、如果余额宝数据库操作成功往余额宝message表插入消息
+
+5、如果4操作成功，回调支付宝接口（使用spring提供的RestTemplate url远程访问支付宝controller中的方法）修改支付宝中的message表状态，把unconfirm状态转换成confirm状态
+</code></pre><blockquote>
+<p>因为message和转帐操作在同一事务中，两者要么同时成功要么同时失败，保证了在转帐成功的情况下message表中的数据必然会发生变化。通过message0表<br>模拟多线程中的锁机制来保证了分布式事务中的幂等性。<br>所谓幂等性就是在重复请求的情况下响应结果不会发生改变,更多可参考:<a href="http://www.sohu.com/a/284814385_100028126" target="_blank" rel="noopener">什么是分布式系统中的幂等性 </a><br><a href="https://blog.csdn.net/yaerfeng/article/details/7089772" target="_blank" rel="noopener">JAVA中使用Timer,TimerTask轮循数据库，执行定时任务</a><br><a href="https://www.cnblogs.com/yangsy0915/p/5467501.html" target="_blank" rel="noopener">RestTemplate</a></p>
+</blockquote>
+<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>1、支付宝设计message表的目的</p>
+<p>如果支付宝往activemq插入消息而余额宝消费消息异常，有可能是消费消息成功而事务操作异常，有可能是网络异常等等不确定因素。如果出现异常而activemq收到了确认消息的信号，这时候activemq中的消息是删除了的，消息丢失了。设置message表就是有一个消息存根，activemq中消息丢失了message表中的消息还在。解决了activemq消息丢失问题</p>
+<p>2、余额宝设计message表的目的</p>
+<p>当余额宝消费成功并且数据库操作成功时，回调支付宝的消息确认接口，如果回调接口时出现异常导致支付宝状态修改失败还是unconfirm状态，这时候还会被timer扫描到，又会往activemq插入消息，又会被余额宝消费一边，但是这条消息已经消费成功了的只是回调失败而已，所以就需要有一个这样的message表，当余额宝消费时先插入message表，如果message根据message_id能查询到记录就说明之前这条消息被消费过就不再消费只需要回调成功即可，如果查询不到消息就消费这条消息继续数据库操作，数据库操作成功就往message表插入消息。  这样就解决了消息重复消费问题，这也是消费端的幂等操作。</p>
+<blockquote>
+<p>更多可参考:<a href="https://blog.csdn.net/luoyang_java/article/details/84953241" target="_blank" rel="noopener">基于activemq的分布式事务解决方案</a></p>
+</blockquote>
+
+    </div>
+    <!--打赏-->
+    
+    <! -- 添加捐赠图标 -->
+<div class="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           ↑<br>
+           欣赏此文？求鼓励，求支持！
+        </span>
+        <br>
+      </div>
+    <div id="donate_guide" style="max-width: 100%;max-height: 100%" class="donate_bar center hidden">
+        <!-- 方式一：
+            ![](/img/Alipay.jpg)
+            ![](/img/WeChatpay.jpg)
+        -->
+        <!-- 方式二；
+            step1：在_config.yml中添加配置
+                Alipay: /img/Alipay.jpg
+                WeChatpay: /img/WeChatpay.jpg
+            step2：此处两张图片的路径分别设置为如下
+                <img src=""
+                <img src=""
+        -->
+        <!-- 支付宝打赏图案 -->
+        <img src="/images/dashang/alipay.jpg" alt="支付宝打赏" style="max-width: 80%;max-height: 80%">
+        <!-- 微信打赏图案 -->
+        <img src="/images/dashang/wxzf.jpg" alt="微信打赏" style="max-width: 80%;max-height: 80%">
+        <br>
+        <a>&emsp;&emsp;&emsp;&emsp;支付宝打赏&emsp;&emsp;&emsp;&emsp;</a>
+        <a>&emsp;&emsp;&emsp;&emsp;微信打赏&emsp;&emsp;&emsp;&emsp;</a>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            document.getElementById("donate_board").classList.add("hidden");
+            document.getElementById("donate_guide").classList.remove("hidden");
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+
+    
+    <br>
+    <footer class="article-footer">
+          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+          <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://www.chenende.top/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    </footer>
+    <br>
+    <div><a color="red">如需转载，请注明作者和来源！</a></div>
+    <br>
+</div>
+
+
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/2019/06/05/dubbo/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                dubbo集群容错与负载均衡策略
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2019/06/04/sql/">
+                sql优化
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+    <!-- 因为gitment里面也有gitment-container，所以这里就改为gitment-comment -->
+<div class="gitment-comment">
+    <div id="container"></div>
+</div>
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        // id default is location.href
+        id: location.pathname,
+        owner: 'chenende2019',
+        repo: 'chenende2019.github.io',
+        oauth: {
+            client_id: '70f594a93794fd9d7504',
+            client_secret: 'fec4f8eef1a42fa2973ac581567abeb306fb92b4',
+        },
+    })
+    gitment.render('container')
+</script>
+    
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    <img src="/images/logo.jpeg">
+    
+    <span>陈恩得</span>
+    
+    
+    <a title="陈恩得的个人技术专栏">陈恩得的个人技术专栏</a>
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>21</span>Tags</a>
+        <a class="count categories"><span>14</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"那年花开月正圆","author":"丁汀","url":"https://www.chenende.top/music/情话.mp3","pic":"https://www.chenende.top/images/music/nnhkyzy.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+    <div class="title">
+        <a>联系我（微信）</a>
+    </div>
+    <img src="/images/erweima.jpg" class="weixin">
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/vue入门/">#vue入门</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/linux/">#linux</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/ubuntu/">#ubuntu</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/vue/">#vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/axios/">#$axios</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ElementUI组件/">#ElementUI组件</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合Mybatis/">#springboot整合Mybatis</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合vue/">#springboot整合vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Mybatis逆向工程/">#Mybatis逆向工程</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/07/10/Eureka/" title="springCloud之服务治理工具Eureka">springCloud之服务治理工具Eureka</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/07/annotation/" title="java 注解">java 注解</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/06/SpringCloud/" title="springCloud 微服务治理工具">springCloud 微服务治理工具</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/dubbo/" title="dubbo集群容错与负载均衡策略">dubbo集群容错与负载均衡策略</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/DistributedTransaction/" title="分布式事务">分布式事务</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>6</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/04/sql/" title="sql优化">sql优化</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>7</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle02/" title="oracle高级篇">oracle高级篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>8</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle/" title="oracle基础篇">oracle基础篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>9</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate-02/" title="Hibernate之批量查询">Hibernate之批量查询</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>10</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate/" title="Hibernate之理论篇">Hibernate之理论篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>11</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hexo/" title="ubuntu安装hexo">ubuntu安装hexo</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>12</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/25/mysql/" title="mysql">mysql</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>13</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/24/java-String/" title="java String">java String</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>14</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-properties/" title="java 持久化配置工具类">java 持久化配置工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>15</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-IO/" title="java 字节流和字符流的读写">java 字节流和字符流的读写</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>16</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/22/java-reflex/" title="java 反射">java 反射</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>17</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/10/javaWeb-cxf/" title="springboot中CXF的使用">springboot中CXF的使用</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>18</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/09/Google-Guava-Collections/" title="Google Guava Collections工具类">Google Guava Collections工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>19</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-BigDecimal/" title="使用BigDecimal进行浮点运算">使用BigDecimal进行浮点运算</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>20</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-Concurrent/" title="一道经典的java并发编程题-统计访问量及访问状态">一道经典的java并发编程题-统计访问量及访问状态</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里巴巴.png">
+            
+            <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2" target="_blank">阿里巴巴失量图标库</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里云.png">
+            
+            <a href="https://home.console.aliyun.com/new#/" target="_blank">阿里云</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://ziyuan.baidu.com/site/index" target="_blank">百度搜索资源平台</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度云.png">
+            
+            <a href="https://pan.baidu.com/" target="_blank">百度网盘</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/hexo.png">
+            
+            <a href="https://hexo.io/zh-cn/" target="_blank">Hexo</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/Vue.png">
+            
+            <a href="https://cn.vuejs.org/" target="_blank">Vue</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/ip.png">
+            
+            <a href="https://ip.chinaz.com/" target="_blank">ip查询</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/在线工具.png">
+            
+            <a href="https://tool.lu/tip/" target="_blank">在线工具</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/github.png">
+            
+            <a href="https://github.com/chenende2019" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/coding.png">
+            
+            <a href="https://dev.tencent.com/u/chenende/" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/sf.png">
+            
+            <a href="https://segmentfault.com/" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/开发者头条.png">
+            
+            <a href="https://toutiao.io/" target="_blank">开发者头条</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/网易.png">
+            
+            <a href="https://reg.163.com/logins.jsp" target="_blank">163邮箱</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/elementui.png">
+            
+            <a href="https://element.eleme.io/#/zh-CN/component/message-box" target="_blank">ElementUI</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+      <div class="title">
+            <a>访客信息</a>
+        </div>
+    <img src="https://tool.lu/netcard/" class="weixin">
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+© 2019 陈恩得
+
+<br>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<br>
+About me <a href="/about-me/">关于我</a>.&nbsp;
+
+
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

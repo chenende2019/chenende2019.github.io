@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="陈恩得">
+    
+    <meta name="description" content="陈恩得的个人技术专栏">
+    
+    
+    
+    
+    
+    
+    <title>vue实战之（六）Swiper轮播图 | 陈恩得的个人技术专栏</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d58bcb3d17fcd5d34007bacf01322163";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    
+    <!--网站图标-->
+    <link rel="icon" href="/images/favicon.ico">
+</head></html>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://www.chenende.top/images/lg/移动端背景图.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">chen en deの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('/images/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -306px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('/images/background.jpg');
+            background-position: center -350px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">chen en deの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1000'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">vue实战之（六）Swiper轮播图</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2019-02-25 22:10:35
+        </div>
+        <span id="busuanzi_container_page_pv">&nbsp;/&nbsp;本文总阅读量<span id="busuanzi_value_page_pv">
+           </span>次 </span>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/vue/">#vue</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在前一章节的基础上，本章我们使用Swiper插件来完成页面轮播图的开发<br><img src="/images/vue/vue06-01.png" alt="vue06-01"></p>
+<h2 id="案例实现"><a href="#案例实现" class="headerlink" title="案例实现"></a>案例实现</h2><ul>
+<li>第一步：安装<code>vue-awesome-swiper</code>插件</li>
+</ul>
+<p>该插件是托管在github上的，所以首先点击<a href="https://github.com" target="_blank" rel="noopener">github</a>进入github首页，在搜索栏里输入<code>vue-awesome-swiper</code>进行全局搜索。<br><a id="more"></a></p>
+<p><img src="/images/vue/vue06-02.png" alt="vue06-02"></p>
+<p>搜索结果中的第一个就是我们要找的插件，点击打开Swiper插件所在的git仓库。在页面下访的README.md中对插件的使用作了详细的说明。</p>
+<p>使用npm安装插件：<code>npm install vue-awesome-swiper --save</code></p>
+<p>安装完成之后，在入口文件中进行引用：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueAwesomeSwiper <span class="keyword">from</span> <span class="string">'vue-awesome-swiper'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// require styles</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'swiper/dist/css/swiper.css'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueAwesomeSwiper, <span class="comment">/* &#123; default global options &#125; */</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>创建轮播图组件</li>
+</ul>
+<p>在<code>src/pages/home/components</code>目录下创建<code>Swiper.vue</code>组件，并添加内容：<br><img src="/images/vue/vue06-03.png" alt="vue06-03"><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">:options</span>=<span class="string">"swiperOption"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- slides --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 1<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 2<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 3<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 4<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 5<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 6<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 7<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional controls --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-pagination"</span>  <span class="attr">slot</span>=<span class="string">"pagination"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-button-prev"</span> <span class="attr">slot</span>=<span class="string">"button-prev"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-button-next"</span> <span class="attr">slot</span>=<span class="string">"button-next"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-scrollbar"</span>   <span class="attr">slot</span>=<span class="string">"scrollbar"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">'HomeSwiper'</span>,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      swiperOption: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"stylus"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>使用<code>npm run start</code>启动项目,页面效果如下：</p>
+<p><img src="/images/vue/vue06-04.png" alt="vue06-04"></p>
+<p>拖动滚动条可以实现轮播的效果，这只是简单的引入，需要我们进一步改进。</p>
+<ul>
+<li>优化Swiper组件</li>
+</ul>
+<p>首先去掉多余的内容，左右箭头和滚动条：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">:options</span>=<span class="string">"swiperOption"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- slides --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 1<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 2<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 3<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 4<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 5<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 6<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span>I'm Slide 7<span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional controls --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-pagination"</span>  <span class="attr">slot</span>=<span class="string">"pagination"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">'HomeSwiper'</span>,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      swiperOption: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"stylus"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>页面效果如下：</p>
+<p><img src="/images/vue/vue06-05.png" alt="vue06-05"></p>
+<p>接下来替换文件插入图片：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">:options</span>=<span class="string">"swiperOption"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- slides --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://img1.qunarzz.com/piao/fusion/1804/13/e1188b0d0f21b902.jpg_750x200_f85c782a.jpg"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://img1.qunarzz.com/piao/fusion/1712/51/36632b2cb850e902.jpg_750x200_fa4120db.jpg"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://img1.qunarzz.com/piao/fusion/1806/8b/2680212fadf30002.jpg_750x200_f85409ac.jpg"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Optional controls --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-pagination"</span>  <span class="attr">slot</span>=<span class="string">"pagination"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">'HomeSwiper'</span>,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      swiperOption: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"stylus"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>修改后的页面如下</p>
+<p><img src="/images/vue/vue06-06.png" alt="vue06-06"></p>
+<p>可以发现图片大小不成比例，需要我们添加css样式来进行调整</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">:options</span>=<span class="string">"swiperOption"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- slides --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"swiper-img"</span> <span class="attr">src</span>=<span class="string">"http://img1.qunarzz.com/piao/fusion/1804/13/e1188b0d0f21b902.jpg_750x200_f85c782a.jpg"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"swiper-img"</span> <span class="attr">src</span>=<span class="string">"http://img1.qunarzz.com/piao/fusion/1712/51/36632b2cb850e902.jpg_750x200_fa4120db.jpg"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"swiper-img"</span> <span class="attr">src</span>=<span class="string">"http://img1.qunarzz.com/piao/fusion/1806/8b/2680212fadf30002.jpg_750x200_f85409ac.jpg"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- Optional controls --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-pagination"</span>  <span class="attr">slot</span>=<span class="string">"pagination"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">'HomeSwiper'</span>,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      swiperOption: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"stylus"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.wrapper</span></span></span><br><span class="line"><span class="undefined">    overflow hidden</span></span><br><span class="line"><span class="undefined">    width: 100%</span></span><br><span class="line"><span class="undefined">    height: 0</span></span><br><span class="line"><span class="css">    <span class="selector-tag">padding-bottom</span>: 26<span class="selector-class">.7</span>%</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#eee</span></span></span><br><span class="line"><span class="css">    <span class="selector-class">.swiper-img</span></span></span><br><span class="line"><span class="undefined">      width: 100%</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>添加css样式后的页面：</p>
+<p><img src="/images/vue/vue06-07.png" alt="vue06-07"></p>
+<ul>
+<li>代码优化</li>
+</ul>
+<p>对于<code>&lt;template&gt;</code>中图片的展示，可以用<code>v-for</code>来进行优化，另外在data中添加<code>pagination: &#39;.swiper-pagination&#39;</code>属性为轮播图添加<code>。。。</code>样式，<br>再添加<code>loop:true</code>,实现循环展示的效果：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">:options</span>=<span class="string">"swiperOption"</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- slides --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">swiper-slide</span> <span class="attr">v-for</span>=<span class="string">"item of swiperList"</span> <span class="attr">:key</span>=<span class="string">"item.id"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"swiper-img"</span> <span class="attr">:src</span>=<span class="string">"item.url"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">swiper-slide</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"swiper-pagination"</span>  <span class="attr">slot</span>=<span class="string">"pagination"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">'HomeSwiper'</span>,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      swiperOption: &#123;</span></span><br><span class="line"><span class="actionscript">        pagination: <span class="string">'.swiper-pagination'</span>,</span></span><br><span class="line"><span class="actionscript">        loop: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      swiperList: [&#123;</span></span><br><span class="line"><span class="actionscript">        id: <span class="string">'001'</span>,</span></span><br><span class="line"><span class="actionscript">        url: <span class="string">'http://img1.qunarzz.com/piao/fusion/1804/13/e1188b0d0f21b902.jpg_750x200_f85c782a.jpg'</span>,</span></span><br><span class="line"><span class="undefined">      &#125;, &#123;</span></span><br><span class="line"><span class="actionscript">        id: <span class="string">'002'</span>,</span></span><br><span class="line"><span class="actionscript">        url: <span class="string">'http://img1.qunarzz.com/piao/fusion/1712/51/36632b2cb850e902.jpg_750x200_fa4120db.jpg'</span>,</span></span><br><span class="line"><span class="undefined">      &#125;, &#123;</span></span><br><span class="line"><span class="actionscript">        id: <span class="string">'003'</span>,</span></span><br><span class="line"><span class="actionscript">        url: <span class="string">'http://img1.qunarzz.com/piao/fusion/1806/8b/2680212fadf30002.jpg_750x200_f85409ac.jpg'</span>,</span></span><br><span class="line"><span class="undefined">      &#125;, &#123;</span></span><br><span class="line"><span class="actionscript">        id: <span class="string">'004'</span>,</span></span><br><span class="line"><span class="actionscript">        url: <span class="string">'http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20192/61c3b6dc2a3b1593e82667a5d92a6706.jpg_750x200_1ec098e6.jpg'</span>,</span></span><br><span class="line"><span class="undefined">      &#125;],</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"stylus"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.wrapper</span></span></span><br><span class="line"><span class="undefined">    overflow hidden</span></span><br><span class="line"><span class="undefined">    width: 100%</span></span><br><span class="line"><span class="undefined">    height: 0</span></span><br><span class="line"><span class="css">    <span class="selector-tag">padding-bottom</span>: 26<span class="selector-class">.7</span>%</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#eee</span></span></span><br><span class="line"><span class="css">    <span class="selector-class">.swiper-img</span></span></span><br><span class="line"><span class="undefined">      width: 100%</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/images/vue/vue06-08.png" alt="vue06-08"></p>
+<ul>
+<li>接下来修改<code>。。。</code>的颜色为白色，在<code>style</code>中添加样式：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;style lang="stylus" scoped&gt;</span><br><span class="line">  <span class="selector-class">.wrapper</span> &gt;&gt;&gt; <span class="selector-class">.swiper-pagination-bullet-active</span></span><br><span class="line">    <span class="selector-tag">background</span>: <span class="selector-id">#ffffff</span></span><br><span class="line">  <span class="selector-class">.wrapper</span></span><br><span class="line">    <span class="selector-tag">overflow</span> <span class="selector-tag">hidden</span></span><br><span class="line">    <span class="selector-tag">width</span>: 100%</span><br><span class="line">    <span class="selector-tag">height</span>: 0</span><br><span class="line">    <span class="selector-tag">padding-bottom</span>: 26<span class="selector-class">.7</span>%</span><br><span class="line">    <span class="selector-tag">background</span>: <span class="selector-id">#eee</span></span><br><span class="line">    <span class="selector-class">.swiper-img</span></span><br><span class="line">      <span class="selector-tag">width</span>: 100%</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>使用<code>&gt;&gt;&gt;</code>来修改<code>Swiper</code>中原本定义的样式，使作用于<code>.wrapper</code>下的所有使用了<code>.swiper-pagination-bullet-active</code>样式的子组件。</p>
+<p>到此，轮播图案例就算完成了。</p>
+<blockquote>
+<p>通过本章学习，对于如何引用第三方插件进行开发应该能有一个大致的了解，通过上一章节和本章节的练习应该能够明显感知到，<br>前端开发大部分时间是在开发css样式，在对css样式不熟悉的情况下或许会感到有些吃力，但没关系通过项目联系可以查找资料一边学习。<br>知识在于点滴积累，希望我们能够一起努力，共同进步，加油！</p>
+</blockquote>
+
+    </div>
+    <!--打赏-->
+    
+    <! -- 添加捐赠图标 -->
+<div class="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           ↑<br>
+           欣赏此文？求鼓励，求支持！
+        </span>
+        <br>
+      </div>
+    <div id="donate_guide" style="max-width: 100%;max-height: 100%" class="donate_bar center hidden">
+        <!-- 方式一：
+            ![](/img/Alipay.jpg)
+            ![](/img/WeChatpay.jpg)
+        -->
+        <!-- 方式二；
+            step1：在_config.yml中添加配置
+                Alipay: /img/Alipay.jpg
+                WeChatpay: /img/WeChatpay.jpg
+            step2：此处两张图片的路径分别设置为如下
+                <img src=""
+                <img src=""
+        -->
+        <!-- 支付宝打赏图案 -->
+        <img src="/images/dashang/alipay.jpg" alt="支付宝打赏" style="max-width: 80%;max-height: 80%">
+        <!-- 微信打赏图案 -->
+        <img src="/images/dashang/wxzf.jpg" alt="微信打赏" style="max-width: 80%;max-height: 80%">
+        <br>
+        <a>&emsp;&emsp;&emsp;&emsp;支付宝打赏&emsp;&emsp;&emsp;&emsp;</a>
+        <a>&emsp;&emsp;&emsp;&emsp;微信打赏&emsp;&emsp;&emsp;&emsp;</a>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            document.getElementById("donate_board").classList.add("hidden");
+            document.getElementById("donate_guide").classList.remove("hidden");
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+
+    
+    <br>
+    <footer class="article-footer">
+          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+          <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://www.chenende.top/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    </footer>
+    <br>
+    <div><a color="red">如需转载，请注明作者和来源！</a></div>
+    <br>
+</div>
+
+
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/2019/02/26/vue07/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                vue实战之（七）图片列表展示
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2019/02/24/vue05/">
+                vue实战之（五）styles及iconfont使用
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+    <!-- 因为gitment里面也有gitment-container，所以这里就改为gitment-comment -->
+<div class="gitment-comment">
+    <div id="container"></div>
+</div>
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        // id default is location.href
+        id: location.pathname,
+        owner: 'chenende2019',
+        repo: 'chenende2019.github.io',
+        oauth: {
+            client_id: '70f594a93794fd9d7504',
+            client_secret: 'fec4f8eef1a42fa2973ac581567abeb306fb92b4',
+        },
+    })
+    gitment.render('container')
+</script>
+    
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    <img src="/images/logo.jpeg">
+    
+    <span>陈恩得</span>
+    
+    
+    <a title="陈恩得的个人技术专栏">陈恩得的个人技术专栏</a>
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>21</span>Tags</a>
+        <a class="count categories"><span>14</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"那年花开月正圆","author":"丁汀","url":"https://www.chenende.top/music/情话.mp3","pic":"https://www.chenende.top/images/music/nnhkyzy.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+    <div class="title">
+        <a>联系我（微信）</a>
+    </div>
+    <img src="/images/erweima.jpg" class="weixin">
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/vue入门/">#vue入门</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/linux/">#linux</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ubuntu/">#ubuntu</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/vue/">#vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/axios/">#$axios</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ElementUI组件/">#ElementUI组件</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合Mybatis/">#springboot整合Mybatis</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合vue/">#springboot整合vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Mybatis逆向工程/">#Mybatis逆向工程</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/07/10/Eureka/" title="springCloud之服务治理工具Eureka">springCloud之服务治理工具Eureka</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/07/annotation/" title="java 注解">java 注解</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/06/SpringCloud/" title="springCloud 微服务治理工具">springCloud 微服务治理工具</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/dubbo/" title="dubbo集群容错与负载均衡策略">dubbo集群容错与负载均衡策略</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/DistributedTransaction/" title="分布式事务">分布式事务</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>6</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/04/sql/" title="sql优化">sql优化</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>7</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle02/" title="oracle高级篇">oracle高级篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>8</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle/" title="oracle基础篇">oracle基础篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>9</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate-02/" title="Hibernate之批量查询">Hibernate之批量查询</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>10</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate/" title="Hibernate之理论篇">Hibernate之理论篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>11</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hexo/" title="ubuntu安装hexo">ubuntu安装hexo</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>12</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/25/mysql/" title="mysql">mysql</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>13</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/24/java-String/" title="java String">java String</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>14</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-properties/" title="java 持久化配置工具类">java 持久化配置工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>15</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-IO/" title="java 字节流和字符流的读写">java 字节流和字符流的读写</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>16</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/22/java-reflex/" title="java 反射">java 反射</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>17</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/10/javaWeb-cxf/" title="springboot中CXF的使用">springboot中CXF的使用</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>18</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/09/Google-Guava-Collections/" title="Google Guava Collections工具类">Google Guava Collections工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>19</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-BigDecimal/" title="使用BigDecimal进行浮点运算">使用BigDecimal进行浮点运算</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>20</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-Concurrent/" title="一道经典的java并发编程题-统计访问量及访问状态">一道经典的java并发编程题-统计访问量及访问状态</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里巴巴.png">
+            
+            <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2" target="_blank">阿里巴巴失量图标库</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里云.png">
+            
+            <a href="https://home.console.aliyun.com/new#/" target="_blank">阿里云</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://ziyuan.baidu.com/site/index" target="_blank">百度搜索资源平台</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度云.png">
+            
+            <a href="https://pan.baidu.com/" target="_blank">百度网盘</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/hexo.png">
+            
+            <a href="https://hexo.io/zh-cn/" target="_blank">Hexo</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/Vue.png">
+            
+            <a href="https://cn.vuejs.org/" target="_blank">Vue</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/ip.png">
+            
+            <a href="https://ip.chinaz.com/" target="_blank">ip查询</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/在线工具.png">
+            
+            <a href="https://tool.lu/tip/" target="_blank">在线工具</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/github.png">
+            
+            <a href="https://github.com/chenende2019" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/coding.png">
+            
+            <a href="https://dev.tencent.com/u/chenende/" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/sf.png">
+            
+            <a href="https://segmentfault.com/" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/开发者头条.png">
+            
+            <a href="https://toutiao.io/" target="_blank">开发者头条</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/网易.png">
+            
+            <a href="https://reg.163.com/logins.jsp" target="_blank">163邮箱</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/elementui.png">
+            
+            <a href="https://element.eleme.io/#/zh-CN/component/message-box" target="_blank">ElementUI</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+      <div class="title">
+            <a>访客信息</a>
+        </div>
+    <img src="https://tool.lu/netcard/" class="weixin">
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+© 2019 陈恩得
+
+<br>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<br>
+About me <a href="/about-me/">关于我</a>.&nbsp;
+
+
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

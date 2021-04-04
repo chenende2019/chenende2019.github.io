@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="陈恩得">
+    
+    <meta name="description" content="陈恩得的个人技术专栏">
+    
+    
+    
+    
+    
+    
+    <title>java String | 陈恩得的个人技术专栏</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d58bcb3d17fcd5d34007bacf01322163";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    
+    <!--网站图标-->
+    <link rel="icon" href="/images/favicon.ico">
+</head></html>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://www.chenende.top/images/lg/移动端背景图.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">chen en deの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('/images/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -306px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('/images/background.jpg');
+            background-position: center -350px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">chen en deの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1000'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">java String</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2019-05-24 20:57:03
+        </div>
+        <span id="busuanzi_container_page_pv">&nbsp;/&nbsp;本文总阅读量<span id="busuanzi_value_page_pv">
+           </span>次 </span>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/java/">#java</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天我们来回顾一下String常用的API及StringBuffer常用的方法。首先String的底层实现是数组，创建的实例对象是不可变的，如果要对String实例进行频繁操作的情况下应该使用StringBuffer,如果是在多线程中使用的话则应该使用StringBuilder,两者的API相同，区别在于StringBuilder是线程安全的，但执行效率要比StringBuffe低，因为多了获取锁和释放锁的操作。</p>
+<a id="more"></a>
+<h2 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h2><pre><code>1     char charAt(int index) 返回指定索引处的 char 值。
+
+2     int compareTo(Object o) 把这个字符串和另一个对象比较。
+
+3     int compareTo(String anotherString) 按字典顺序比较两个字符串。
+
+4     int compareToIgnoreCase(String str) 按字典顺序比较两个字符串，不考虑大小写。
+
+5     String concat(String str) 将指定字符串连接到此字符串的结尾。
+
+6     boolean contentEquals(StringBuffer sb) 当且仅当字符串与指定的StringButter有相同顺序的字符时候返回真。
+
+7     static String copyValueOf(char[] data) 返回指定数组中表示该字符序列的 String。
+
+8     static String copyValueOf(char[] data, int offset, int count) 返回指定数组中表示该字符序列的 String。
+
+9     boolean endsWith(String suffix) 测试此字符串是否以指定的后缀结束。
+
+10     boolean equals(Object anObject) 将此字符串与指定的对象比较。
+
+11     boolean equalsIgnoreCase(String anotherString) 将此 String 与另一个 String 比较，不考虑大小写。
+
+12     byte[] getBytes()  使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。
+
+13     byte[] getBytes(String charsetName) 使用指定的字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。
+
+14     void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin) 将字符从此字符串复制到目标字符数组。
+
+15     int hashCode() 返回此字符串的哈希码。
+
+16     int indexOf(int ch) 返回指定字符在此字符串中第一次出现处的索引。
+
+17     int indexOf(int ch, int fromIndex) 返回在此字符串中第一次出现指定字符处的索引，从指定的索引开始搜索。
+
+18     int indexOf(String str)  返回指定子字符串在此字符串中第一次出现处的索引。
+
+19     int indexOf(String str, int fromIndex) 返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始。
+
+20     String intern()  返回字符串对象的规范化表示形式。
+
+21     int lastIndexOf(int ch)  返回指定字符在此字符串中最后一次出现处的索引。
+
+22     int lastIndexOf(int ch, int fromIndex) 返回指定字符在此字符串中最后一次出现处的索引，从指定的索引处开始进行反向搜索。
+
+23     int lastIndexOf(String str) 返回指定子字符串在此字符串中最右边出现处的索引。
+
+24     int lastIndexOf(String str, int fromIndex)  返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。
+
+25     int length() 返回此字符串的长度。
+
+26     boolean matches(String regex) 告知此字符串是否匹配给定的正则表达式。
+
+27     boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len) 测试两个字符串区域是否相等。
+
+28     boolean regionMatches(int toffset, String other, int ooffset, int len) 测试两个字符串区域是否相等。
+
+29     String replace(char oldChar, char newChar) 返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。
+
+30     String replaceAll(String regex, String replacement ) 使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。
+
+31     String replaceFirst(String regex, String replacement)  使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。
+
+32     String[] split(String regex) 根据给定正则表达式的匹配拆分此字符串。
+
+33     String[] split(String regex, int limit) 根据匹配给定的正则表达式来拆分此字符串。
+
+34     boolean startsWith(String prefix) 测试此字符串是否以指定的前缀开始。
+
+35     boolean startsWith(String prefix, int toffset) 测试此字符串从指定索引开始的子字符串是否以指定前缀开始。
+
+36     CharSequence subSequence(int beginIndex, int endIndex)  返回一个新的字符序列，它是此序列的一个子序列。
+
+37     String substring(int beginIndex) 返回一个新的字符串，它是此字符串的一个子字符串。
+
+38     String substring(int beginIndex, int endIndex) 返回一个新字符串，它是此字符串的一个子字符串。
+
+39     char[] toCharArray() 将此字符串转换为一个新的字符数组。
+
+40     String toLowerCase() 使用默认语言环境的规则将此 String 中的所有字符都转换为小写。
+
+41     String toLowerCase(Locale locale)  使用给定 Locale 的规则将此 String 中的所有字符都转换为小写。
+
+42     String toString()  返回此对象本身（它已经是一个字符串！）。
+
+43     String toUpperCase() 使用默认语言环境的规则将此 String 中的所有字符都转换为大写。
+
+44     String toUpperCase(Locale locale) 使用给定 Locale 的规则将此 String 中的所有字符都转换为大写。
+
+45     String trim() 返回字符串的副本，忽略前导空白和尾部空白。
+
+46     static String valueOf(primitive data type x) 返回给定data type类型x参数的字符串表示形式。
+</code></pre><h2 id="字符串格式化"><a href="#字符串格式化" class="headerlink" title="字符串格式化"></a>字符串格式化</h2><p>1.对整数进行格式化：%[index$][标识][最小宽度]转换方式</p>
+<p>格式化字符串由4部分组成，特殊的格式常以%index$开头，index从1开始取值，表示将第index个参数拿进来进行格式化，[最小宽度]的含义也很好理解，就是最终该整数转化的字符串最少包含多少位数字。剩下2个部分的含义：</p>
+<p>标识：</p>
+<pre><code>&apos;-&apos; 在最小宽度内左对齐，不可以与&quot;用0填充&quot;同时使用
+
+&apos;#&apos; 只适用于8进制和16进制，8进制时在结果前面增加一个0，16进制时在结果前面增加0x
+
+&apos;+&apos; 结果总是包括一个符号(一般情况下只适用于10进制，若对象为BigInteger才可以用于8进制和16进制)
+
+&apos; &apos; 正值前加空格，负值前加负号(一般情况下只适用于10进制，若对象为BigInteger才可以用于8进制和16进制)
+
+&apos;0&apos; 结果将用零来填充
+
+&apos;,&apos; 只适用于10进制，每3位数字之间用&quot;，&quot;分隔
+
+&apos;(&apos; 若参数是负数，则结果中不添加负号而是用圆括号把数字括起来(同&apos;+&apos;具有同样的限制)
+</code></pre><p>转换方式：</p>
+<pre><code>d-十进制 o-八进制 x或X-十六进制
+</code></pre><p>上面的说明过于枯燥，我们来看几个具体的例子。需要特别注意的一点是：大部分标识字符可以同时使用。</p>
+<pre><code>System.out.println(String.format(&quot;%1$,09d&quot;, -3123));
+System.out.println(String.format(&quot;%1$9d&quot;, -31));
+System.out.println(String.format(&quot;%1$-9d&quot;, -31));
+System.out.println(String.format(&quot;%1$(9d&quot;, -31));
+System.out.println(String.format(&quot;%1$#9x&quot;, 5689));
+//结果为：
+//-0003,123
+// -31
+//-31
+// (31)
+// 0x1639　
+</code></pre><p>2.对浮点数进行格式化：%[index$][标识][最少宽度][.精度]转换方式</p>
+<p>我们可以看到，浮点数的转换多了一个”精度”选项，可以控制小数点后面的位数。</p>
+<p>标识：</p>
+<pre><code>&apos;-&apos; 在最小宽度内左对齐，不可以与&quot;用0填充&quot;同时使用
+
+&apos;+&apos; 结果总是包括一个符号
+
+&apos; &apos; 正值前加空格，负值前加负号
+
+&apos;0&apos; 结果将用零来填充
+
+&apos;,&apos; 每3位数字之间用&quot;，&quot;分隔(只适用于fgG的转换)
+
+&apos;(&apos; 若参数是负数，则结果中不添加负号而是用圆括号把数字括起来(只适用于eEfgG的转换)
+</code></pre><p>转换方式：</p>
+<pre><code>&apos;e&apos;, &apos;E&apos; -- 结果被格式化为用计算机科学记数法表示的十进制数
+
+&apos;f&apos; -- 结果被格式化为十进制普通表示方式
+
+&apos;g&apos;, &apos;G&apos; -- 根据具体情况，自动选择用普通表示方式还是科学计数法方式
+
+&apos;a&apos;, &apos;A&apos; -- 结果被格式化为带有效位数和指数的十六进制浮点数
+</code></pre><p>3.对字符进行格式化：</p>
+<p>对字符进行格式化是非常简单的，c表示字符，标识中’-‘表示左对齐，其他就没什么了。</p>
+<h2 id="StringBuffer常用方法"><a href="#StringBuffer常用方法" class="headerlink" title="StringBuffer常用方法"></a>StringBuffer常用方法</h2><pre><code>/**
+     * 添加
+     * @param source
+     * @param content
+     * @return
+     */
+    public static String  addString(String source,String content){
+        StringBuffer stringBuffer = new StringBuffer(source);
+        stringBuffer.append(content);
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 替换
+     * @param source
+     * @return
+     */
+    public static String replaceString(String source,int index,char replaceContent){
+        StringBuffer stringBuffer = new StringBuffer(source);
+        new StringBuilder()
+        stringBuffer.setCharAt(index,replaceContent);
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 插入
+     * @param source
+     * @param index
+     * @param insertContent
+     * @return
+     */
+    public static String insertString(String source,int index,char[] insertContent){
+        StringBuffer stringBuffer = new StringBuffer(source);
+        return stringBuffer.insert(index, insertContent).toString();
+
+    }
+
+    /**
+     * 删除
+     * @param source
+     * @param startIndex
+     * @param endIndex
+     * @return
+     */
+    public static String delString(String source,int startIndex,int endIndex){
+        StringBuffer stringBuffer = new StringBuffer(source);
+        return stringBuffer.delete(startIndex,endIndex).toString();
+    }
+
+append(boolean b)：将 boolean 参数的字符串表示形式追加到序列。
+
+append(char c)：将 char 参数的字符串表示形式追加到此序列。
+
+append(char[] str)：将 char 数组参数的字符串表示形式追加到此序列。
+
+append(char[] str，int offset，int len)：将 char 数组参数的子数组的字符串表示形式追加到此序列。
+
+append(CharSequence s)：向此 Appendable 追加到指定的字符序列。
+
+append(CharSequence s，int start，int end)：将指定 CharSequence 的子序列追加到此序列。
+
+append(double d)：将 double 参数的字符串表示形式追加到此序列。
+
+append(float f)：将 float 参数的字符串表示形式追加到此序列。
+
+append(int i)：将 int 参数的字符串表示形式追加到此序列。
+
+append(long lng)：将 long 参数的字符串表示形式追加到此序列。
+
+append(Object obj)：追加 Object 参数的字符串表示形式。
+
+append(String str)：将指定的字符串追加到此字符序列。
+
+append(StringBuffer sb)：将指定的 StringBuffer 追加到此序列。
+
+appendCodePoint(int codePoint)：将 codePoint 参数的字符串表示形式追加到此序列。
+
+capacity()：返回当前容量。
+
+charAt(int index)：返回此序列中指定索引处的 char 值。
+
+codePointAt(int index)：返回指定索引处的字符（统一代码点）。
+
+codePointBefore(int index)：返回指定索引前的字符（统一代码点）。
+
+codePointCount(int beginIndex，int endIndex)：返回此序列指定文本范围内的统一代码点。
+
+delete(int start，int end)：移除此序列的子字符串中的字符。
+
+deleteCharAt(int index)：移除此序列指定位置上的 char。
+
+ensureCapacity(int minimumCapacity)：确保容量至少等于指定的最小值。
+
+getChars(int srcBegin，int srcEnd，char[] dst，int dstBegin)：将字符从此序列复制到目标字符数组 dst。
+
+indexOf(String str)：返回第一次出现的指定子字符串在该字符串中的索引。
+
+indexOf(String str，int fromIndex)：从指定的索引处开始，返回第一次出现的指定子字符串在该字符串中的索引。
+
+insert(int offset，boolean b)：将 boolean 参数的字符串表示形式插入此序列中。
+
+insert(int offset，char c)：将 char 参数的字符串表示形式插入此序列中。
+
+insert(int offset，char[] str)：将 char 数组参数的字符串表示形式插入此序列中。
+
+insert(int index，char[] str，int offset，int len)：将数组参数 str 子数组的字符串表示形式插入此序列中。
+
+insert(int dstOffset，CharSequence s)：将指定 CharSequence 插入此序列中。
+
+insert(int dstOffset，CharSequence s，int start，int end)：将指定 CharSequence 的子序列插入此序列中。
+
+insert(int offset，double d)：将 double 参数的字符串表示形式插入此序列中。
+
+insert(int offset，float f)：将 float 参数的字符串表示形式插入此序列中。
+
+insert(int offset，int i)：将 int 参数的字符串表示形式插入此序列中。
+
+insert(int offset，long l)：将 long 参数的字符串表示形式插入此序列中。
+
+insert(int offset，Object obj)：将 Object 参数的字符串表示形式插入此字符序列中。
+
+insert(int offset，String str)：将字符串插入此字符序列中。
+
+lastIndexOf(String str)：返回最右边出现的指定子字符串在此字符串中的索引。
+
+lastIndexOf(String str，int fromIndex)：返回最后一次出现的指定子字符串在此字符串中的索引。
+
+length()：返回长度（字符数）。
+
+offsetByCodePoints(int index，int codePointOffset)：返回此序列中的一个索引，该索引是从给定 index 偏移 codePointOffset 个代码点后得到的。
+
+replace(int start，int end，String str)：使用给定 String 中的字符替换此序列的子字符串中的字符。
+
+reverse()：将此字符序列用其反转形式取代。
+
+setCharAt(int index，char ch)：将给定索引处的字符设置为 ch。
+
+setLength(int newLength)：设置字符序列的长度。
+
+subSequence(int start，int end)：返回一个新字符序列，该字符序列是此序列的子序列。
+
+substring(int start)：返回一个新的 String，它包含此字符序列当前所包含字符的子序列。
+
+substring(int start，int end)：返回一个新的 String，它包含此序列当前所包含字符的子序列。
+
+toString()：返回此序列中数据的字符串表示形式。
+
+trimToSize()：尝试减少用于字符序列的存储空间。
+</code></pre><blockquote>
+<p>StringBuilder同StringBuffer中的方法相同此处不再赘述。需要注意的是方法中凡有开头索引和结束索引的，都不包括结束索引处的值。    </p>
+</blockquote>
+
+    </div>
+    <!--打赏-->
+    
+    <! -- 添加捐赠图标 -->
+<div class="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           ↑<br>
+           欣赏此文？求鼓励，求支持！
+        </span>
+        <br>
+      </div>
+    <div id="donate_guide" style="max-width: 100%;max-height: 100%" class="donate_bar center hidden">
+        <!-- 方式一：
+            ![](/img/Alipay.jpg)
+            ![](/img/WeChatpay.jpg)
+        -->
+        <!-- 方式二；
+            step1：在_config.yml中添加配置
+                Alipay: /img/Alipay.jpg
+                WeChatpay: /img/WeChatpay.jpg
+            step2：此处两张图片的路径分别设置为如下
+                <img src=""
+                <img src=""
+        -->
+        <!-- 支付宝打赏图案 -->
+        <img src="/images/dashang/alipay.jpg" alt="支付宝打赏" style="max-width: 80%;max-height: 80%">
+        <!-- 微信打赏图案 -->
+        <img src="/images/dashang/wxzf.jpg" alt="微信打赏" style="max-width: 80%;max-height: 80%">
+        <br>
+        <a>&emsp;&emsp;&emsp;&emsp;支付宝打赏&emsp;&emsp;&emsp;&emsp;</a>
+        <a>&emsp;&emsp;&emsp;&emsp;微信打赏&emsp;&emsp;&emsp;&emsp;</a>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            document.getElementById("donate_board").classList.add("hidden");
+            document.getElementById("donate_guide").classList.remove("hidden");
+        }
+    </script>
+</div>
+<! -- 添加捐赠图标 -->
+
+    
+    <br>
+    <footer class="article-footer">
+          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+          <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://www.chenende.top/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    </footer>
+    <br>
+    <div><a color="red">如需转载，请注明作者和来源！</a></div>
+    <br>
+</div>
+
+
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/2019/05/25/mysql/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                mysql
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2019/05/23/java-properties/">
+                java 持久化配置工具类
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+    <!-- 因为gitment里面也有gitment-container，所以这里就改为gitment-comment -->
+<div class="gitment-comment">
+    <div id="container"></div>
+</div>
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        // id default is location.href
+        id: location.pathname,
+        owner: 'chenende2019',
+        repo: 'chenende2019.github.io',
+        oauth: {
+            client_id: '70f594a93794fd9d7504',
+            client_secret: 'fec4f8eef1a42fa2973ac581567abeb306fb92b4',
+        },
+    })
+    gitment.render('container')
+</script>
+    
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    <img src="/images/logo.jpeg">
+    
+    <span>陈恩得</span>
+    
+    
+    <a title="陈恩得的个人技术专栏">陈恩得的个人技术专栏</a>
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>21</span>Tags</a>
+        <a class="count categories"><span>14</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"那年花开月正圆","author":"丁汀","url":"https://www.chenende.top/music/情话.mp3","pic":"https://www.chenende.top/images/music/nnhkyzy.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+    <div class="title">
+        <a>联系我（微信）</a>
+    </div>
+    <img src="/images/erweima.jpg" class="weixin">
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/vue入门/">#vue入门</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/linux/">#linux</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ubuntu/">#ubuntu</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/vue/">#vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/axios/">#$axios</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ElementUI组件/">#ElementUI组件</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合Mybatis/">#springboot整合Mybatis</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合vue/">#springboot整合vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Mybatis逆向工程/">#Mybatis逆向工程</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/07/10/Eureka/" title="springCloud之服务治理工具Eureka">springCloud之服务治理工具Eureka</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/07/annotation/" title="java 注解">java 注解</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/06/SpringCloud/" title="springCloud 微服务治理工具">springCloud 微服务治理工具</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/dubbo/" title="dubbo集群容错与负载均衡策略">dubbo集群容错与负载均衡策略</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/DistributedTransaction/" title="分布式事务">分布式事务</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>6</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/04/sql/" title="sql优化">sql优化</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>7</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle02/" title="oracle高级篇">oracle高级篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>8</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle/" title="oracle基础篇">oracle基础篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>9</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate-02/" title="Hibernate之批量查询">Hibernate之批量查询</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>10</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate/" title="Hibernate之理论篇">Hibernate之理论篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>11</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hexo/" title="ubuntu安装hexo">ubuntu安装hexo</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>12</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/25/mysql/" title="mysql">mysql</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>13</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/24/java-String/" title="java String">java String</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>14</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-properties/" title="java 持久化配置工具类">java 持久化配置工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>15</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-IO/" title="java 字节流和字符流的读写">java 字节流和字符流的读写</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>16</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/22/java-reflex/" title="java 反射">java 反射</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>17</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/10/javaWeb-cxf/" title="springboot中CXF的使用">springboot中CXF的使用</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>18</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/09/Google-Guava-Collections/" title="Google Guava Collections工具类">Google Guava Collections工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>19</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-BigDecimal/" title="使用BigDecimal进行浮点运算">使用BigDecimal进行浮点运算</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>20</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-Concurrent/" title="一道经典的java并发编程题-统计访问量及访问状态">一道经典的java并发编程题-统计访问量及访问状态</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里巴巴.png">
+            
+            <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2" target="_blank">阿里巴巴失量图标库</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里云.png">
+            
+            <a href="https://home.console.aliyun.com/new#/" target="_blank">阿里云</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://ziyuan.baidu.com/site/index" target="_blank">百度搜索资源平台</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度云.png">
+            
+            <a href="https://pan.baidu.com/" target="_blank">百度网盘</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/hexo.png">
+            
+            <a href="https://hexo.io/zh-cn/" target="_blank">Hexo</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/Vue.png">
+            
+            <a href="https://cn.vuejs.org/" target="_blank">Vue</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/ip.png">
+            
+            <a href="https://ip.chinaz.com/" target="_blank">ip查询</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/在线工具.png">
+            
+            <a href="https://tool.lu/tip/" target="_blank">在线工具</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/github.png">
+            
+            <a href="https://github.com/chenende2019" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/coding.png">
+            
+            <a href="https://dev.tencent.com/u/chenende/" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/sf.png">
+            
+            <a href="https://segmentfault.com/" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/开发者头条.png">
+            
+            <a href="https://toutiao.io/" target="_blank">开发者头条</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/网易.png">
+            
+            <a href="https://reg.163.com/logins.jsp" target="_blank">163邮箱</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/elementui.png">
+            
+            <a href="https://element.eleme.io/#/zh-CN/component/message-box" target="_blank">ElementUI</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+      <div class="title">
+            <a>访客信息</a>
+        </div>
+    <img src="https://tool.lu/netcard/" class="weixin">
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+© 2019 陈恩得
+
+<br>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<br>
+About me <a href="/about-me/">关于我</a>.&nbsp;
+
+
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>

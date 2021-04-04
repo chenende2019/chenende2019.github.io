@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="陈恩得">
+    
+    <meta name="description" content="陈恩得的个人技术专栏">
+    
+    
+    
+    
+    
+    
+    <title>陈恩得的个人技术专栏</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d58bcb3d17fcd5d34007bacf01322163";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    
+    <!--网站图标-->
+    <link rel="icon" href="/images/favicon.ico">
+</head></html>
+<body>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://www.chenende.top/images/lg/移动端背景图.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">chen en deの部落格</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('/images/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -306px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('/images/background.jpg');
+            background-position: center -350px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">chen en deの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '2000',
+                height: '1000'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            
+<div class="cube-excerpt" id="cube-excerpt-vue实战之（二）在windows上的安装及部署">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2019/02/20/vue02/">vue实战之（二）在windows上的安装及部署</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2019-02-20
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/vue/" class="cube-excerpt-tag-link">#vue</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>vue在windows上的安装相比与ubuntu要稍麻烦一点，安装方式虽有不同，但方法是一致的。</p>
+<ul>
+<li>安装nodejs(与ubuntu不同的是，windows在安装nodejs的时候会自动安装npm)</li>
+<li>安装vue-cli</li>
+<li>更新npm安装源</li>
+<li>配置环境变量</li>
+<li>创建新项目</li>
+</ul>
+<h2 id="1-安装nodejs"><a href="#1-安装nodejs" class="headerlink" title="1.安装nodejs"></a>1.安装nodejs</h2><p>1.进入<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">nodejs官网</a>选择windows版本进行下载。</p>
+<p>2.下载完成后双击安装包，选择安装目录一路点击下一步直到完成安装即可。</p>
+<p>3.使用<code>nodejs -v</code> 和<code>npm -v</code> 验证nodejs和npm是否安装成功。（能看到版本信息即表示成功）</p>
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2019/02/20/vue02/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-vue实战之（一）在ubuntu中安装及项目构建">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2019/02/20/vue01/">vue实战之（一）在ubuntu中安装及项目构建</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2019-02-20
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/vue/" class="cube-excerpt-tag-link">#vue</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>开发环境是ubuntu，如果是windows需自行百度相关内容。</p>
+<h2 id="安装前的准备工作"><a href="#安装前的准备工作" class="headerlink" title="安装前的准备工作"></a>安装前的准备工作</h2><p>因为vue是基于node.js的，在安装vue之前需要先行安装node.js，最行版本因为不稳定，所以不建议安装。在构建项目时候还依赖npm,所以还需要安装npm.</p>
+<h3 id="1-安装node-js"><a href="#1-安装node-js" class="headerlink" title="1.安装node.js"></a>1.安装node.js</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">更新ubuntu软件源</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">安装node.js</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install nodejs</span><br><span class="line">安装npm</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install npm</span><br></pre></td></tr></table></figure>
+<p>安装完成之后，使用命令<code>nodejs -v</code>和<code>npm -v</code>可以看到版本号即表示安装成功。</p>
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2019/02/20/vue01/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-git系列之初始化配置">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2019/02/19/git3/">git系列之初始化配置</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2019-02-19
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/git/" class="cube-excerpt-tag-link">#git</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在成功安装git后需要进行一些初始化设置，设置用户名和密码，设置ssh密钥跟服务器建立对应关系。完成这些配置后才能拉取和提交代码。</p>
+<h2 id="git初始化配置"><a href="#git初始化配置" class="headerlink" title="git初始化配置"></a>git初始化配置</h2><h3 id="1-首先需要配置用户名和密码（即邮件地址），在提交代码的时候会用到。"><a href="#1-首先需要配置用户名和密码（即邮件地址），在提交代码的时候会用到。" class="headerlink" title="1.首先需要配置用户名和密码（即邮件地址），在提交代码的时候会用到。"></a>1.首先需要配置用户名和密码（即邮件地址），在提交代码的时候会用到。</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global user.name <span class="string">"xxx"</span></span><br><span class="line">git<span class="built_in"> config </span>--global user.email xxx@163.com</span><br></pre></td></tr></table></figure>
+<p>使用–global选项即设置了全局的用户名和密码，如果想要针对特定项目使用不同的用户名和密码，可以在那个项目目录下运行不带global选项的命令来配置。</p>
+<h3 id="2-检查配置信息"><a href="#2-检查配置信息" class="headerlink" title="2.检查配置信息"></a>2.检查配置信息</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--list 列出所有git配置信息</span><br><span class="line">也可以通过 </span><br><span class="line">	git<span class="built_in"> config </span>user.name(属性名) 检查git某一项配置</span><br></pre></td></tr></table></figure>
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2019/02/19/git3/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-git系列之命令进阶">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2019/02/19/git2/">git系列之命令进阶</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2019-02-19
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/git/" class="cube-excerpt-tag-link">#git</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在掌握了基本的git命令后，在工作中或许你还会遇到其它一些问题，比如取消使用add加入到暂存区的代码，或者是commit到本地仓库中的代码，<br>又或者是取消对于文件的修改…</p>
+<h2 id="git的进阶命令"><a href="#git的进阶命令" class="headerlink" title="git的进阶命令"></a>git的进阶命令</h2><h3 id="1-创建git本地仓库"><a href="#1-创建git本地仓库" class="headerlink" title="1. 创建git本地仓库"></a>1. 创建git本地仓库</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git init</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-取消暂存"><a href="#2-取消暂存" class="headerlink" title="2.取消暂存"></a>2.取消暂存</h3><p>如何操作暂存区域与工作目录中已修改的文件， 这些命令在修改文件状态的同时，也会提示如何撤消操作。 例如，你已经修改了两个文件并且想要将它们作为两次独立的修改提交，但是却意外地输入了 git add * 暂存了它们两个。 如何只取消暂存两个中的一个呢？ git status 命令提示了你：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git add *</span><br><span class="line"><span class="variable">$ </span>git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be <span class="symbol">committed:</span></span><br><span class="line">  (<span class="keyword">use</span> <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</span><br><span class="line">    <span class="symbol">renamed:</span>    README.md -&gt; README</span><br><span class="line">    <span class="symbol">modified:</span>   CONTRIBUTING.md</span><br></pre></td></tr></table></figure></p>
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2019/02/19/git2/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-git系列之常用命令">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2019/02/17/git/">git系列之常用命令</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2019-02-17
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/git/" class="cube-excerpt-tag-link">#git</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>首先明确一个概念：git由三个存储位置组成，缓存、本地仓库、远程仓库；</p>
+<ul>
+<li>使用<code>git add</code>命令是将代码加入到缓存中。</li>
+<li>使用<code>git commit</code>命令是将代码提交到本地仓库。</li>
+<li>使用<code>git push</code>命令才是最终的提交，即提交到远程仓库。</li>
+</ul>
+<p>这三个命令需依次执行，如果你觉得 git add 提交缓存的流程太过繁琐，Git 也允许你用 -a 选项跳过这一步。命令格式<code>git commit -a</code>;</p>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><p>1.查看分支状态;</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通常用来检查代码冲突、是否有新的变更没有提交。</span><br><span class="line">git <span class="keyword">status</span></span><br></pre></td></tr></table></figure>
+<p>2.拉取代码</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">后面跟git</span>仓库地址</span><br><span class="line">需要注意的是：拉取代码后需要使用checkout检出你的分支，不然的话所处位置是<span class="literal">master</span>，代码会无法提交。</span><br></pre></td></tr></table></figure>
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2019/02/17/git/">Read More</a>
+    </footer>
+</div>
+
+
+
+<ul class="cube-pagination cube-pagination-9">
+    
+    <li class="cube-pagination-prev">
+        <a href="/page/11/">« Prev</a>
+    </li>
+    
+    
+        
+                <li class="cube-pagination-index">
+                    <a href="/">1</a>
+                </li>
+                <li class="cube-pagination-ellipses">
+                    <span>...</span>
+                </li>
+            
+                
+                <li class="cube-pagination-index">
+                    <a href="/page/10">10</a>
+                </li>
+                
+            
+                
+                <li class="cube-pagination-index">
+                    <a href="/page/11">11</a>
+                </li>
+                
+            
+                
+                <li class="cube-pagination-index disabled">
+                    <span>12</span>
+                </li>
+                
+            
+                
+                <li class="cube-pagination-index">
+                    <a href="/page/13">13</a>
+                </li>
+                
+            
+        
+    
+
+    
+    <li class="cube-pagination-next">
+        <a href="/page/13/">Next »</a>
+    </li>
+    
+</ul>
+
+<!--其他组件后续添加-->
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    <img src="/images/logo.jpeg">
+    
+    <span>陈恩得</span>
+    
+    
+    <a title="陈恩得的个人技术专栏">陈恩得的个人技术专栏</a>
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>21</span>Tags</a>
+        <a class="count categories"><span>14</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"那年花开月正圆","author":"丁汀","url":"https://www.chenende.top/music/情话.mp3","pic":"https://www.chenende.top/images/music/nnhkyzy.jpg"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+    <div class="title">
+        <a>联系我（微信）</a>
+    </div>
+    <img src="/images/erweima.jpg" class="weixin">
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/vue入门/">#vue入门</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/categories/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/MySql/">#MySql</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/linux/">#linux</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ubuntu/">#ubuntu</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/sublimeText/">#sublimeText</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/git/">#git</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/vue/">#vue</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/axios/">#$axios</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/ElementUI组件/">#ElementUI组件</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/springboot/">#springboot</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springboot整合Mybatis/">#springboot整合Mybatis</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/springboot整合vue/">#springboot整合vue</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Mybatis逆向工程/">#Mybatis逆向工程</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java/">#java</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/java-web/">#java web</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Google-Guava/">#Google_Guava</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/javaWeb/">#javaWeb</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hibernate/">#hibernate</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/oracle/">#oracle</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/springCloud/">#springCloud</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/spring/">#spring</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/Concurrent/">#Concurrent</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/07/10/Eureka/" title="springCloud之服务治理工具Eureka">springCloud之服务治理工具Eureka</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/07/annotation/" title="java 注解">java 注解</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/06/SpringCloud/" title="springCloud 微服务治理工具">springCloud 微服务治理工具</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/dubbo/" title="dubbo集群容错与负载均衡策略">dubbo集群容错与负载均衡策略</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/05/DistributedTransaction/" title="分布式事务">分布式事务</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>6</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/04/sql/" title="sql优化">sql优化</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>7</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle02/" title="oracle高级篇">oracle高级篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>8</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/06/02/oracle/" title="oracle基础篇">oracle基础篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>9</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate-02/" title="Hibernate之批量查询">Hibernate之批量查询</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>10</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hibernate/" title="Hibernate之理论篇">Hibernate之理论篇</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>11</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/28/hexo/" title="ubuntu安装hexo">ubuntu安装hexo</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>12</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/25/mysql/" title="mysql">mysql</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>13</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/24/java-String/" title="java String">java String</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>14</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-properties/" title="java 持久化配置工具类">java 持久化配置工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>15</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/23/java-IO/" title="java 字节流和字符流的读写">java 字节流和字符流的读写</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>16</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/22/java-reflex/" title="java 反射">java 反射</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>17</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/10/javaWeb-cxf/" title="springboot中CXF的使用">springboot中CXF的使用</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>18</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/09/Google-Guava-Collections/" title="Google Guava Collections工具类">Google Guava Collections工具类</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>19</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-BigDecimal/" title="使用BigDecimal进行浮点运算">使用BigDecimal进行浮点运算</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>20</span>
+                </p>
+                <p class="title">
+                    <a href="/2019/05/08/java-Concurrent/" title="一道经典的java并发编程题-统计访问量及访问状态">一道经典的java并发编程题-统计访问量及访问状态</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里巴巴.png">
+            
+            <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2" target="_blank">阿里巴巴失量图标库</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/阿里云.png">
+            
+            <a href="https://home.console.aliyun.com/new#/" target="_blank">阿里云</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://ziyuan.baidu.com/site/index" target="_blank">百度搜索资源平台</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度.png">
+            
+            <a href="https://tongji.baidu.com/web/welcome/login" target="_blank">百度统计</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/百度云.png">
+            
+            <a href="https://pan.baidu.com/" target="_blank">百度网盘</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/hexo.png">
+            
+            <a href="https://hexo.io/zh-cn/" target="_blank">Hexo</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/Vue.png">
+            
+            <a href="https://cn.vuejs.org/" target="_blank">Vue</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/ip.png">
+            
+            <a href="https://ip.chinaz.com/" target="_blank">ip查询</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/在线工具.png">
+            
+            <a href="https://tool.lu/tip/" target="_blank">在线工具</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/github.png">
+            
+            <a href="https://github.com/chenende2019" target="_blank">GitHub</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/coding.png">
+            
+            <a href="https://dev.tencent.com/u/chenende/" target="_blank">Coding</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/sf.png">
+            
+            <a href="https://segmentfault.com/" target="_blank">SF社区</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/开发者头条.png">
+            
+            <a href="https://toutiao.io/" target="_blank">开发者头条</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/网易.png">
+            
+            <a href="https://reg.163.com/logins.jsp" target="_blank">163邮箱</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="/images/lg/elementui.png">
+            
+            <a href="https://element.eleme.io/#/zh-CN/component/message-box" target="_blank">ElementUI</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-lianxiwo">
+      <div class="title">
+            <a>访客信息</a>
+        </div>
+    <img src="https://tool.lu/netcard/" class="weixin">
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+© 2019 陈恩得
+
+<br>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<br>
+About me <a href="/about-me/">关于我</a>.&nbsp;
+
+
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+</html>
